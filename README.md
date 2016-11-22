@@ -1,4 +1,4 @@
-# Welcom to Watchdog
+# Welcome to Watchdog
 Watchdog is a web application which lets you to quickly visualize snapshots taken by your surveillance cameras
 
 ## License
