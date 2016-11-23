@@ -1,0 +1,33 @@
+﻿<div class="container">
+    <!-- header -->
+    <header>
+        <ul class="nav nav-tabs">
+            <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
+            <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+            <li ng-if="vm.user.isadmin == 1" ng-class="{active: activeTab === 'register'}"><a ui-sref="register">Add
+                User</a></li>
+            <li><a href="/login" target="_self">Logout</a></li>
+        </ul>
+        <div class="flash-message" ng-if="flash">
+            <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+        </div>
+    </header>
+
+    <h1>My Account</h1>
+
+    <div class="form-container">
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" ng-model="vm.user.username" required/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" ng-model="vm.user.password"/>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="vm.saveUser()">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

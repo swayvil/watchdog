@@ -1,0 +1,11 @@
+.thumb {
+    margin-bottom: 0px;
+}
+
+.large-image {
+  position: fixed;
+  top: 10%;
+  left: 22%;
+  z-index: 10;
+  visible:hidden;
+}

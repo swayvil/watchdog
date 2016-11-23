@@ -1,0 +1,43 @@
+﻿{
+    "apiUrl": "http://localhost:8080/api",
+    "httpServerPort": 8080,
+    "secret": "REPLACE THIS WITH YOUR OWN SECRET, IT CAN BE ANY STRING",
+    "imapconfig": {
+        "username": "mail@gmail.com",
+        "password": "REPLACE ME",
+        "imap": {
+            "host": "imap.gmail.com",
+            "port": 993,
+            "tls": true
+        },
+        "unseensince": "Sep 01, 2015",
+        "from": "mail@gmail.com"
+    },
+    "dbconfig": {
+        "host": "127.0.0.1",
+        "username": "watchdog",
+        "password": "watchdog"
+    },
+    "mailpatterns": [
+        {
+            "object": "\\s*La cam.+ra ([\\w\\-]+) a d.+tect.+ un mouvement",
+            "body": "\\s*La cam.+ra ([\\w\\-]+) a d.+tect.+ un mouvement .+ (\\w{3})\\s+(\\w{3})\\s+(\\d{1,2})\\s+([\\d:]+)\\s+(\\d{4}).*"
+        },
+        {
+            "object": "NAS: Synology Surveillance Station a d.+tect.+ un mouvement sur des cam.+ras",
+            "body": "([\\w\\-]+),(\\d{4}\\/\\d{1,2}\\/\\d{1,2})"
+        },
+        {
+            "object": "NAS: (.*) Mouvement d.+tect.+",
+            "body": "CAMERA: ([\\w\\-]+)\\nDATE: (\\d{4}\\/\\d{1,2}\\/\\d{1,2})\\nTIME: (\\d{1,2}:\\d{1,2}:\\d{1,2})"
+        },
+        {
+            "object": "Synology Surveillance Station a d.+tect.+ un mouvement sur des cam.+ras",
+            "body": "Synology Surveillance Station a d.+tect.+ un mouvemnt sur la ou les cam.+ras suivantes : ([\\w\\-]+).+"
+        }
+    ],
+    "logger": {
+        "debugfilepath": "/home/watchdog/logs/debug.log",
+        "errorfilepath": "/home/watchdog/logs/exceptions.log"
+    }
+}

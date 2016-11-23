@@ -1,0 +1,4 @@
+{
+  "insertSnapshot": "INSERT INTO watchdog.snapshots (id, snapshot) VALUES (?, ?)",
+  "selectSnapshot": "SELECT snapshot FROM watchdog.snapshots WHERE id = ?"
+}

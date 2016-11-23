@@ -1,0 +1,5 @@
+{
+    "selectByName": "SELECT username, password, isadmin FROM watchdog.users WHERE username = ?",
+    "selectById": "SELECT username, password, isadmin FROM watchdog.users WHERE id = ?",
+    "insert": "INSERT INTO watchdog.users (username, password, isadmin) VALUES (?, ?, ?)"
+}

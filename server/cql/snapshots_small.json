@@ -1,0 +1,9 @@
+{
+  "insertSnapshotsSmall": "INSERT INTO watchdog.snapshots_small (id, camera, snapshotsmall, timestamp, day) VALUES (?, ?, ?, ?, ?)",
+  "selectCameras": "SELECT camera FROM watchdog.cameras",
+  "selectDates": "SELECT DISTINCT day FROM watchdog.snapshots_small",
+  "selectSnapshotsSmallAllCameras": "SELECT id, timestamp, camera, snapshotsmall FROM watchdog.snapshots_small WHERE day = ? ALLOW FILTERING",
+  "selectSnapshotsSmallAllCamerasCount": "SELECT count(id) AS count FROM watchdog.snapshots_small WHERE timestamp >= ? ALLOW FILTERING",
+  "selectSnapshotsSmall": "SELECT id, timestamp, camera, snapshotsmall FROM watchdog.snapshots_small WHERE day = ? AND camera = ? ALLOW FILTERING",
+  "selectSnapshotsSmallCount": "SELECT count(id) AS count FROM watchdog.snapshots_small WHERE timestamp >= ? AND camera = ? ALLOW FILTERING"
+}

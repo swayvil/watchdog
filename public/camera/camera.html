@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <!-- header -->
+    <header>
+        <ul class="nav nav-tabs">
+            <li ng-class="{active: activeTab === 'home'}"><a ui-sref="home">Home</a></li>
+            <li ng-class="{active: activeTab === 'account'}"><a ui-sref="account">Account</a></li>
+            <li ng-if="vm.pageData.isadmin != 1" ng-class="{active: activeTab === 'register'}"><a ui-sref="register">Add
+                User</a>
+            </li>
+            <li><a href="/login" target="_self">Logout</a></li>
+        </ul>
+        <div class="flash-message" ng-if="flash">
+            <div class="{{'alert alert-' + flash.type}}" ng-bind="flash.message"></div>
+        </div>
+    </header>
+
+    <form name="dateForm">
+        <select ng-options="day as day | date:'dd-MM-yyyy EEE' for day in vm.pageData.dateList"
+                ng-model="vm.pageData.dateSelected"
+                ng-change='vm.getSnapshots(false)'>
+        </select>
+    </form>
+    <form name="cameraForm">
+        <select ng-options="c as c for c in vm.pageData.cameraList"
+                ng-model="vm.pageData.cameraSelected"
+                ng-change='vm.getSnapshots(false)'>
+            <option value="">All</option>
+        </select>
+    </form>
+
+    <div ng-if="vm.snapshot != null" class="large-image">
+        <img id="largeImage" data-ng-src='data:image/jpeg;base64,{{vm.snapshot}}'/>
+    </div>
+
+    <div class="row" id="full">
+        <div infinite-scroll='vm.loadMore()' infinite-scroll-disabled='vm.pageData.isInfiniteScrollDisabled'
+             infinite-scroll-distance='1' class="fixed">
+            <div ng-repeat='s in vm.pageData.snapshots' class="col-xs-2 thumb">
+                <a class="thumbnail" href="#">
+                    <img ng-mouseover="vm.getSnapshot(s.id)" class="img-responsive" data-ng-src='data:image/jpeg;base64,{{s.snapshotsmall}}' alt="" id="{{s.id}}">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+    $(document).ready(function () {
+        var timer = Date.now();
+        $(document).on('mouseover', 'img.img-responsive', function (event) {
+            if (Date.now() - timer > 200) {
+                //$("#largeImage").attr('src', $(this).attr('src'));
+                $(".large-image").attr('visibility', 'visible');
+            }
+        });
+        $(document).on('mouseleave', '.large-image', function (event) {
+            $("#largeImage").attr('src', '');
+            $(".large-image").attr('visibility', 'hidden');
+            timer = Date.now();
+        });
+        $(document).on('mouseleave', 'img.img-responsive', function (event) {
+            // Coordinates of the large image
+            var left = $(".large-image").position().left,
+                    right = left + $(".large-image").width(),
+                    top = $(".large-image").position().top,
+                    down = top + $(".large-image").height();
+            if ((event.pageX < left || event.pageX > right) &&
+                    (event.pageY > top || event.pageY < down)) {
+                $("#largeImage").attr('src', '');
+                $(".large-image").attr('visibility', 'hidden');
+            }
+        });
+    });
+</script>
