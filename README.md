@@ -29,6 +29,23 @@ cqlsh -u watchdog -p 'watchdog'
 # Create the tables, the cql commands are in db/cassandra.init.cql
 ```
 
+### Database configuration using Docker
+Alternatively a [Dockerfile](https://github.com/swayvil/watchdog/blob/master/docker/cassandra/Dockerfile) is available.
+```
+cd watchdog/docker/cassandra
+chmod +x docker-entrypoint.sh
+# Build the container
+docker build -t watchdog/cassandra:3.11 .
+# Run the container
+docker run -d -p 7000:7000 -p 7001:7001 -p 7199:7199 -p 9042:9042 -p 9160:9160 --name cassandra watchdog/cassandra:3.11
+# Enter the container
+docker exec -it cassandra /bin/bash
+# Run the cql scripts to initialize the database
+cd /tmp
+cqlsh -u cassandra -p cassandra -f 1.cassandra.init.cql
+cqlsh -u watchdog -p watchdog123 -f 2.cassandra.create.cql
+```
+
 ### Installation of the application
 #### Installation on Windows
 ##### Pre-requirements
