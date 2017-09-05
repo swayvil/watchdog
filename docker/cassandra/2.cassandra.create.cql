@@ -1,5 +1,5 @@
-CREATE KEYSPACE watchdog WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
-CREATE TABLE watchdog.users (
+// CREATE KEYSPACE watchdog WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+CREATE TABLE IF NOT EXISTS watchdog.users (
     username text PRIMARY KEY,
     isadmin boolean,
     password text
@@ -17,7 +17,7 @@ CREATE TABLE watchdog.users (
     AND min_index_interval = 128
     AND read_repair_chance = 0.0
     AND speculative_retry = '99PERCENTILE';
-CREATE TABLE watchdog.snapshots_small (
+CREATE TABLE IF NOT EXISTS watchdog.snapshots_small (
     id uuid,
     camera text,
     snapshotsmall text,
@@ -39,7 +39,7 @@ CREATE TABLE watchdog.snapshots_small (
     AND min_index_interval = 128
     AND read_repair_chance = 0.0
     AND speculative_retry = '99PERCENTILE';
-CREATE TABLE watchdog.snapshots (
+CREATE TABLE IF NOT EXISTS watchdog.snapshots (
     id uuid,
     snapshot text,
     PRIMARY KEY (id)
@@ -57,7 +57,7 @@ CREATE TABLE watchdog.snapshots (
     AND min_index_interval = 128
     AND read_repair_chance = 0.0
     AND speculative_retry = '99PERCENTILE';
-CREATE TABLE watchdog.cameras (
+CREATE TABLE IF NOT EXISTS watchdog.cameras (
     camera text,
     PRIMARY KEY (camera)
 ) WITH bloom_filter_fp_chance = 0.01

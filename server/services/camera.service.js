@@ -24,7 +24,7 @@ SOFTWARE.
 
 var db      = require('./cassandra-client');
 var Q       = require('q'); // a promise library
-var uuid    = require('node-uuid');
+var uuidV4  = require('uuid/v4');
 
 var service = {};
 service.getDateList = getDateList;
@@ -112,7 +112,7 @@ function getCountToSelect(dateSelected, cameraSelected) {
 }
 
 function insertSnapshots(snapshot) {
-    snapshot.id = uuid.v4(); //eg. 110ec58a-a0f2-4ac4-8393-c866d813b8d1
+    snapshot.id = uuidV4(); //eg. 110ec58a-a0f2-4ac4-8393-c866d813b8d1
     snapshot.timestamp = snapshot.timestamp.toString().substring(0, 19) + ' UTC';
     snapshot.day = snapshot.timestamp.toString().substring(0, 10) + ' 00:00:00 UTC'; //eg. 2016-11-02 04:44:09 To 2016-11-02
     db.snapshots.insertSnapshot(snapshot);
